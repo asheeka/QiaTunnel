@@ -12,10 +12,6 @@ Font_Suffix="\033[0m";
 
 
 clear;
-echo -e "  \033[1;37m${Font_Purple}Media Stream Unlocker Test Mod By NevermoreSSH${Font_Suffix}\033[0m";
-echo -e "  \033[1;37mVersion : 2.0 ${Font_SkyBlue}${shell_version}${Font_Suffix}\033[0m";
-echo -e "  \033[1;37mTime    : $(date)\033[0m"
-
 export LANG="en_US.UTF-8";
 export LANGUAGE="en_US.UTF-8";
 export LC_ALL="en_US.UTF-8";

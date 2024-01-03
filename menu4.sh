@@ -140,10 +140,8 @@ function genssl(){
 export sem=$( curl -s https://raw.githubusercontent.com/asheeka/QiaTunnel/main/test/versions)
 export pak=$( cat /home/.ver)
 IPVPS=$(curl -s ipinfo.io/ip )
-IPVPS=$(curl -sS ipv4.icanhazip.com)
 ISPVPS=$( curl -s ipinfo.io/org | awk '{print $1 " " $2 " " $3}')
-#daily_usage=$(vnstat -d --oneline | awk -F\; '{print $6}' | sed 's/ //')
-monthly_usage=$(vnstat -m --oneline | awk -F\; '{print $11}' | sed 's/ //')
+
 ram_used=$(free -m | grep Mem: | awk '{print $3}')
 total_ram=$(free -m | grep Mem: | awk '{print $2}')
 ram_usage=$(echo "scale=2; ($ram_used / $total_ram) * 100" | bc | cut -d. -f1)
@@ -176,58 +174,38 @@ echo -e "${Cyan}  DROPBEAR ${NC}: $resdbr" "${Cyan} SSH-WS ${NC}: $ressshws" "${
 echo -e "${Cyan} ┌──────────────────────────────────────────────┐${NC}"
 echo -e "     ${Cyan}[${NC}01${Cyan}] SSHWS       ${NC}[ ${Yellow}${ssh}${Cyan} ] ${NC}" 
 echo -e "" 
-echo -e "     ${Cyan}[${NC}06${BICyan}] EXP FILES ${BICyan}${BIYellow}${BICyan}       ${BICyan}[${BIWhite}20${BICyan}] INFO SCRIPT ${BICyan}${BIYellow}${BICyan}${NC}"    
-echo -e "     ${Cyan}[${NC}07${BICyan}] AUTO REBOOT ${BICyan}${BIYellow}${BICyan}     ${BICyan}[${BIWhite}21${BICyan}] CLEAR LOG ${BICyan}${BIYellow}${BICyan}${NC}"    
-echo -e "     ${Cyan}[${NC}08${BICyan}] REBOOT ${BICyan}${BIYellow}${BICyan}          ${BICyan}[${BIWhite}22${BICyan}] TASK MANAGER ${BICyan}${BIYellow}${BICyan}${NC}"    
-echo -e "     ${Cyan}[${NC}09${BICyan}] RESTART ${BICyan}${BIYellow}${BICyan}         ${BICyan}[${BIWhite}23${BICyan}] DNS CHANGER ${BICyan}${BIYellow}${BICyan}${NC}"    
-echo -e "     ${Cyan}[${NC}10${BICyan}] UPDATE MENU ${BICyan}${BIYellow}${BICyan}     ${BICyan}[${BIWhite}24${BICyan}] NETFLIX CHECKER ${BICyan}${BIYellow}${BICyan}${NC}"
-echo -e "     ${BICyan}[${BIWhite}11${BICyan}] ADD HOST/DOMAIN ${BICyan}${BIYellow}${BICyan} ${BICyan}[${BIWhite}25${BICyan}] TENDANG ${BICyan}${BIYellow}${BICyan}${NC}" 
-echo -e "     ${BICyan}[${BIWhite}12${BICyan}] RENEW CERT ${BICyan}${BIYellow}${BICyan}      ${BICyan}[${BIWhite}26${BICyan}] XRAY-CORE MENU ${BICyan}${BIYellow}${BICyan}${NC}"       
-echo -e "     ${BICyan}[${BIWhite}13${BICyan}] EDIT BANNER ${BICyan}${BIYellow}${BICyan}     ${BICyan}[${BIWhite}27${BICyan}] INSTALL BBRPLUS ${BICyan}${BIYellow}${BICyan}${NC}" 
-echo -e "     ${BICyan}[${BIWhite}14${BICyan}] RUNNING STATUS ${BICyan}${BIYellow}${BICyan}  ${BICyan}[${BIWhite}28${BICyan}] SWAPRAM MENU ${BICyan}${BIYellow}${BICyan}${NC}" 
-echo -e "     ${BICyan}[${BIWhite}15${BICyan}] USER BANDWIDTH ${BICyan}${BIYellow}${BICyan}  ${BICyan}[${BIWhite}29${BICyan}] BACKUP ${BICyan}${BIYellow}${BICyan}${NC}" 
-echo -e "     ${BICyan}[${BIWhite}16${BICyan}] SPEEDTEST ${BICyan}${BIYellow}${BICyan}       ${BICyan}[${BIWhite}30${BICyan}] RESTORE ${BICyan}${BIYellow}${BICyan}${NC}"
-echo -e "     ${BICyan}[${BIWhite}17${BICyan}] CHECK BANDWIDTH ${BICyan}${BIYellow}${BICyan} ${BICyan}[${BIWhite}x ${BICyan}] EXIT ${BICyan}${BIYellow}${BICyan}${NC}"
-echo -e "     ${BICyan}[${BIWhite}18${BICyan}] LIMIT SPEED ${BICyan}${BIYellow}${BICyan}${NC}"
-echo -e "     ${BICyan}[${BIWhite}19${BICyan}] WEBMIN ${BICyan}${BIYellow}${BICyan}${NC}"
-echo -e " ${BICyan}┌──────────────────────────────────────────────┐${NC}"
-echo -e " ${BICyan}│   Version      ${NC} : $sem Last Update            ${BICyan}│${NC}"
-echo -e " ${BICyan}└──────────────────────────────────────────────┘${NC}"
+echo -e "     ${Cyan}[${NC}02${Cyan}] ${NC}AUTO REBOOT         ${Cyan}[${NC}10${Cyan}] ${NC}SPEED TEST "    
+echo -e "     ${Cyan}[${NC}03${Cyan}] ${NC}REBOOT              ${Cyan}[${NC}11${Cyan}] ${NC}LIMIT SPEED "    
+echo -e "     ${Cyan}[${NC}04${Cyan}] ${NC}RESTART             ${Cyan}[${NC}12${Cyan}] ${NC}WEBMIN "    
+echo -e "     ${Cyan}[${NC}05${Cyan}] ${NC}UPDATE MENU         ${Cyan}[${NC}13${Cyan}] ${NC}INFO SCRIPT "    
+echo -e "     ${Cyan}[${NC}06${Cyan}] ${NC}ADD HOST/DOMAIN     ${Cyan}[${NC}14${Cyan}] ${NC}CLEAR LOG "
+echo -e "     ${Cyan}[${NC}07${Cyan}] ${NC}RENEW CERT          ${Cyan}[${NC}15${Cyan}] ${NC}UPDATE DNS " 
+echo -e "     ${Cyan}[${NC}08${Cyan}] ${NC}EDIT BANNER         ${Cyan}[${NC}16${Cyan}] ${NC}NETFLIX CHECK "       
+echo -e "     ${Cyan}[${NC}09${Cyan}] ${NC}RUNNING STATUS      ${Cyan}[${NC}17${Cyan}] ${NC}TENDANG " 
+echo -e " ${Cyan}┌──────────────────────────────────────────────┐${NC}"
+echo -e " ${Cyan}│   Version      ${NC} : $sem Last Update            ${Cyan}│${NC}"
+echo -e " ${Cyan}└──────────────────────────────────────────────┘${NC}"
 echo
 read -p " Select menu : " opt
 echo -e ""
 case $opt in
 1) clear ; menu-ssh ;;
-2) clear ; menu-vmess ;;
-3) clear ; menu-vless ;;
-4) clear ; menu-trojan ;;
-5) clear ; menu-ss ;;
-6) clear ; xp ;;
-7) clear ; autoreboot ;;
-8) clear ; reboot ;;
-9) clear ; restart ;;
-10) clear ; updatemenu;;
-11) clear ; addhost ;;
-12) clear ; genssl ;;
-13) clear ; nano /etc/issue.net ;;
-14) clear ; running ;;
-15) clear ; cek-trafik ;;
-16) clear ; cek-speed ;;
-17) clear ; cek-bandwidth ;;
-18) clear ; limit-speed ;;
-19) clear ; wbm ;;
-20) clear ; cat /root/log-install.txt ;;
-21) clear ; clearlog ;;
-22) clear ; gotop ;;
-23) clear ; dns ;;
-24) clear ; netf ;;
-25) clear ; tendang ;;
-26) clear ; wget -q -O /usr/bin/xraychanger "https://raw.githubusercontent.com/NevermoreSSH/Xcore-custompath/main/xraychanger.sh" && chmod +x /usr/bin/xraychanger && xraychanger ;;
-27) clear ; bbr ;;
-28) clear ; wget -q -O /usr/bin/swapram "https://raw.githubusercontent.com/NevermoreSSH/swapram/main/swapram.sh" && chmod +x /usr/bin/swapram && swapram ;;
-29) clear ; backup ;;
-30) clear ; restore ;;
-
+2) clear ; autoreboot ;;
+3) clear ; reboot ;;
+4) clear ; restart ;;
+5) clear ; updatemenu;;
+6) clear ; addhost ;;
+7) clear ; genssl ;;
+8) clear ; nano /etc/issue.net ;;
+9) clear ; running ;;
+10) clear ; cek-speed ;;
+11) clear ; limit-speed ;;
+12) clear ; wbm ;;
+13) clear ; cat /root/log-install.txt ;;
+14) clear ; clearlog ;;
+15) clear ; dns ;;
+16) clear ; netf ;;
+17) clear ; tendang ;;
 0) clear ; menu ;;
 x) exit ;;
 *) echo -e "" ; echo "Press any key to back exit" ; sleep 1 ; exit ;;

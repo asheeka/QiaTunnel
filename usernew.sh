@@ -70,6 +70,8 @@ domen=`cat /etc/xray/domain`
 else
 domen=`cat /etc/v2ray/domain`
 fi
+domen=`cat /root/domain`
+domain=`cat /root/domain`
 portsshws=`cat /root/log-install.txt | grep -w "SSH Websocket" | cut -d: -f2 | awk '{print $1}'`
 wsssl=`cat /root/log-install.txt | grep -w "SSH SSL Websocket" | cut -d: -f2 | awk '{print $1}'`
 
@@ -80,22 +82,12 @@ read -p "Username : " Login
 read -p "Password : " Pass
 read -p "Expired (hari): " masaaktif
 
-IP=$(curl -sS ifconfig.me);
 IP=$(curl -s ipinfo.io/ip )
-IP=$(curl -sS ipv4.icanhazip.com)
-ossl=`cat /root/log-install.txt | grep -w "OpenVPN" | cut -f2 -d: | awk '{print $6}'`
+
 opensh=`cat /root/log-install.txt | grep -w "OpenSSH" | cut -f2 -d: | awk '{print $1}'`
 db=`cat /root/log-install.txt | grep -w "Dropbear" | cut -f2 -d: | awk '{print $1,$2}'`
 ssl="$(cat /root/log-install.txt | grep -w "Stunnel5" | cut -d: -f2)"
 sqd="$(cat /root/log-install.txt | grep -w "Squid" | cut -d: -f2)"
-ovpn="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
-ovpn2="$(netstat -nlpu | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
-#nameserver=$(cat /root/nsdomain)
-#pubkey=$(cat /etc/slowdns/server.pub)
-
-OhpSSH=`cat /root/log-install.txt | grep -w "OHP SSH" | cut -d: -f2 | awk '{print $1}'`
-OhpDB=`cat /root/log-install.txt | grep -w "OHP DBear" | cut -d: -f2 | awk '{print $1}'`
-OhpOVPN=`cat /root/log-install.txt | grep -w "OHP OpenVPN" | cut -d: -f2 | awk '{print $1}'`
 
 sleep 1
 clear
@@ -105,9 +97,6 @@ echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
 PID=`ps -ef |grep -v grep | grep sshws |awk '{print $2}'`
 
 cat > /home/vps/public_html/ssh-$Login.txt <<-END
-====================================================================
-              Format SSH OVPN Account
-====================================================================
 
 ====================================================================
         SSH Account       
@@ -140,12 +129,8 @@ echo -e "Expired On : $exp" | tee -a /etc/log-create-user.log
 echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" | tee -a /etc/log-create-user.log
 echo -e "IP Address : $IP" | tee -a /etc/log-create-user.log
 echo -e "Host : $domen" | tee -a /etc/log-create-user.log
-#echo -e "NS Host : $nameserver" | tee -a /etc/log-create-user.log
-#echo -e "Pubkey : $pubkey" | tee -a /etc/log-create-user.log
 echo -e "OpenSSH : $opensh" | tee -a /etc/log-create-user.log
 echo -e "Dropbear : $db" | tee -a /etc/log-create-user.log
-#echo -e "SlowDNS : 22,53,5300,80,443" | tee -a /etc/log-create-user.log
-#echo -e "UDP Custom : 1-65535" | tee -a /etc/log-create-user.log
 echo -e "SSH-WS : $portsshws" | tee -a /etc/log-create-user.log
 echo -e "SSH-SSL-WS : $wsssl" | tee -a /etc/log-create-user.log
 echo -e "SSL/TLS : $ssl" | tee -a /etc/log-create-user.log
@@ -182,12 +167,8 @@ echo -e "Expired On : $exp" | tee -a /etc/log-create-user.log
 echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" | tee -a /etc/log-create-user.log
 echo -e "IP Address : $IP" | tee -a /etc/log-create-user.log
 echo -e "Host : $domen" | tee -a /etc/log-create-user.log
-#echo -e "NS Host : $nameserver" | tee -a /etc/log-create-user.log
-#echo -e "Pubkey : $pubkey" | tee -a /etc/log-create-user.log
 echo -e "OpenSSH : $opensh" | tee -a /etc/log-create-user.log
 echo -e "Dropbear : $db" | tee -a /etc/log-create-user.log
-#echo -e "SlowDNS : 22,53,5300,80,443" | tee -a /etc/log-create-user.log
-#echo -e "UDP Custom : 1-65535" | tee -a /etc/log-create-user.log
 echo -e "SSH-WS : $portsshws" | tee -a /etc/log-create-user.log
 echo -e "SSH-SSL-WS : $wsssl" | tee -a /etc/log-create-user.log
 echo -e "SSL/TLS : $ssl" | tee -a /etc/log-create-user.log
