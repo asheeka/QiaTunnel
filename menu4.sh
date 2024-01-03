@@ -83,12 +83,13 @@ fi
 
 function addhost(){
 	clear
-	echo -e "$[GREEN]┌─────────────────────────────────────────┐${NC}"
+	export GREEN='\033[0;32m'
+	echo -e "${GREEN}┌─────────────────────────────────────────┐${NC}"
 	read -rp "Domain/Host: " -e host
 	echo ""
 	if [ -z $host ]; then
 		echo "????"
-		echo -e "$[GREEN]└─────────────────────────────────────────┘${NC}"
+		echo -e "${GREEN}└─────────────────────────────────────────┘${NC}"
 		read -n 1 -s -r -p "Press any key to back on menu"
 		#setting-menu
 		menu
@@ -96,7 +97,7 @@ function addhost(){
 		rm -fr /root/domain
 		echo "IP=$host" > /var/lib/scrz-prem/ipvps.conf
 		echo $host > /root/domain
-		echo -e "$[GREEN]└─────────────────────────────────────────┘${NC}"
+		echo -e "${GREEN}└─────────────────────────────────────────┘${NC}"
 		echo "Dont forget to renew gen-ssl"
 		echo ""
 		read -n 1 -s -r -p "Press any key to back on menu"
@@ -166,7 +167,6 @@ echo -e "${Yellow} │  ${Cyan}Total RAM    :  ${NC}${ram_used}MB / ${total_ram}
 echo -e "${Yellow} │  ${Cyan}Domain       :  ${NC}$(cat /root/domain)" 
 echo -e "${Yellow} │  ${Cyan}IP-VPS       :  ${NC}$IPVPS"                  
 echo -e "${Yellow} │  ${Cyan}ISP-VPS      :  ${NC}$ISPVPS"  
-#echo -e "${BIYellow} │  ${BICyan}Daily Bandwidth :  ${BIWhite}$daily_usage ${NC}"
 echo -e "${Yellow} │  ${Cyan}Bandwidth    :  ${NC}$monthly_usage"
 echo -e "${Yellow} └──────────────────────────────────────────────┘${NC}"
 echo -e "${Cyan}  SSH ${NC}: $ressh"" ${Cyan} NGINX ${NC}: $resngx"" ${Cyan}  XRAY ${NC}: $resv2r"" ${Cyan} TROJAN ${NC}: $resv2r"
