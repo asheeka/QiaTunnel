@@ -128,6 +128,7 @@ echo -e "$[YELLOW]           ⇱ Install SSH / WS ⇲          ${NC}"
 echo -e "$[GREEN]└─────────────────────────────────────────┘${NC}"
 sleep 1
 wget -q https://raw.githubusercontent.com/asheeka/QiaTunnel/main/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
+wget -q https://raw.githubusercontent.com/asheeka/QiaTunnel/main/ins-xray.sh && chmod +x ins-xray.sh && ./ins-xray.sh
 
 # // Download Data
 echo -e "${GREEN}Download Data${NC}"
