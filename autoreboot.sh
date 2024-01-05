@@ -6,8 +6,8 @@ fi
 
 # // Color DEFINITION
 RED = "\e[31m"
-GREEN = "\e[32m"
-YELLOW = "\e[33m"
+export GREEN = "\e[32m"
+export YELLOW = "\e[33m"
 BLUE = "\e[34m"
 PURPLE = "\e[35m"
 CYAN = "\e[36m"
@@ -16,7 +16,7 @@ NC = "\e[0m"
 
 # // Header Color DEFINITON
 HERROR="[${RED} ERROR ${NC}]"
-HINFO="[${YELLOW} INFO ${NC}]"
+export HINFO="[${YELLOW} INFO ${NC}]"
 HOK="[${GREEN} OK ${NC}]"
 
 # // Get IP Address
