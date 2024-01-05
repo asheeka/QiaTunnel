@@ -4,44 +4,27 @@ if [ "${EUID}" -ne 0 ]; then
 		exit 1
 fi
 
-# // Export Color & Information
-export RED='\033[0;31m'
-export GREEN='\033[0;32m'
-export YELLOW='\033[0;33m'
-export BLUE='\033[0;34m'
-export PURPLE='\033[0;35m'
-export CYAN='\033[0;36m'
-export LIGHT='\033[0;37m'
-export NC='\033[0m'
+# // Color DEFINITION
+RED = "\e[31m"
+GREEN = "\e[32m"
+YELLOW = "\e[33m"
+BLUE = "\e[34m"
+PURPLE = "\e[35m"
+CYAN = "\e[36m"
+LIGRAY = "\e[37m"
+NC = "\e[0m"
 
-# // Export Banner Status Information
-export EROR="[${RED} ERROR ${NC}]"
-export INFO="[${YELLOW} INFO ${NC}]"
-export OKEY="[${GREEN} OKEY ${NC}]"
-export PENDING="[${YELLOW} PENDING ${NC}]"
-export SEND="[${YELLOW} SEND ${NC}]"
-export RECEIVE="[${YELLOW} RECEIVE ${NC}]"
+# // Header Color DEFINITON
+HERROR="[${RED} ERROR ${NC}]"
+HINFO="[${YELLOW} INFO ${NC}]"
+HOK="[${GREEN} OK ${NC}]"
 
-# // Export Align
-export BOLD="\e[1m"
-export WARNING="${RED}\e[5m"
-export UNDERLINE="\e[4m"
+# // Get IP Address
+IP=$( curl -s https://ipinfo.io/ip/ )
 
-# // Exporting URL Host
-export Server_URL="raw.githubusercontent.com/NevermoreSSH/Blueblue/main/test"
-export Server1_URL="raw.githubusercontent.com/NevermoreSSH/Blueblue/main/limit"
-export Server_Port="443"
-export Server_IP="underfined"
-export Script_Mode="Stable"
-export Auther=".geovpn"
+# // Get Network Interface
+NETWORK_IFACE="$(ip route show to default | awk '{print $5}')"
 
-# // Exporting IP Address
-export IP=$( curl -s https://ipinfo.io/ip/ )
-
-# // Exporting Network Interface
-export NETWORK_IFACE="$(ip route show to default | awk '{print $5}')"
-
-MYIP=$(wget -qO- icanhazip.com);
 echo "Checking VPS"
 clear
 if [ ! -e /usr/bin/reboot ]; then
@@ -53,115 +36,120 @@ if [ ! -e /usr/bin/reboot ]; then
 	chmod +x /usr/bin/reboot
 fi
 
-echo -e "$[GREEN]┌─────────────────────────────────────────┐${NC}"
-echo -e "$[YELLOW]              ⇱ AUTO REBOOT ⇲             ${NC}"
-echo -e "$[GREEN]└─────────────────────────────────────────┘${NC}"
-
 echo -e ""
-echo -e "------------------------------------" | lolcat
-echo -e "             AUTO REBOOT"
-echo -e "------------------------------------" | lolcat
+echo -e "┌──────────────────────────────────────┐" | lolcat
+echo -e "|             AUTO REBOOT              |"| lolcat
+echo -e "└──────────────────────────────────────┘" | lolcat
 echo -e ""
-echo -e "    1)  Auto Reboot 30 Minutes"
-echo -e "    2)  Auto Reboot 1 Hours"
-echo -e "    3)  Auto Reboot 12 Hours"
-echo -e "    4)  Auto Reboot 24 Hours"
-echo -e "    5)  Auto Reboot 1 Weeks"
-echo -e "    6)  Auto Reboot 1 Month"
-echo -e "    7)  Turn Off Auto Reboot"
+echo -e "    [ ${CYAN}1${NC} ]  Auto Reboot 30 Minutes"
+echo -e "    [ ${CYAN}2${NC} ]  Auto Reboot 1 Hours"
+echo -e "    [ ${CYAN}3${NC} ]  Auto Reboot 12 Hours"
+echo -e "    [ ${CYAN}4${NC} ]  Auto Reboot 24 Hours"
+echo -e "    [ ${CYAN}5${NC} ]  Auto Reboot 1 Weeks"
+echo -e "    [ ${CYAN}6${NC} ]  Auto Reboot 1 Month"
+echo -e "    [ ${CYAN}7${NC} ]  Turn Off Auto Reboot"
+echo -e "    [ ${CYAN}X${NC} ]  Back to Menu"
+echo -e "───────────────────────────────────────" | lolcat
 echo -e ""
-echo -e "------------------------------------" | lolcat
-echo -e "    x)   MENU"
-echo -e "------------------------------------" | lolcat
-echo -e ""
-read -p "     Please Input Number  [1-7 or x] :  "  autoreboot
+read -p "    Please Input Number  [1-7 or X] :  "  autoreboot
 echo -e ""
 case $autoreboot in
 1)
 echo "*/30 * * * * root /usr/bin/reboot" > /etc/cron.d/auto_reboot && chmod +x /etc/cron.d/auto_reboot
 echo "" > /root/log-reboot.txt
 echo -e ""
-echo -e "======================================"
-echo -e "      AutoReboot : On"
-echo -e "      AutoReboot Every : 30 Minutes"
-echo -e "======================================"
+echo -e "───────────────────────────────────────" | lolcat
+echo -e "${HINFO}      AutoReboot : On ${NC}"
+echo -e "${HINFO}      AutoReboot Every : 30 Minutes ${NC}"
+echo -e "───────────────────────────────────────" | lolcat
 service cron reload >/dev/null 2>&1
 service cron restart >/dev/null 2>&1
+echo ""
+read -n 1 -s -r -p "Press any key to back on menu reboot"
+autoreboot
 ;;
 2)
 echo "0 * * * * root /usr/bin/reboot" > /etc/cron.d/auto_reboot && chmod +x /etc/cron.d/auto_reboot
 echo "" > /root/log-reboot.txt
 echo -e ""
-echo -e "======================================"
-echo -e ""
-echo -e "      AutoReboot : On"
-echo -e "      AutoReboot Every : 1 Hours"
-echo -e ""
-echo -e "======================================"
+echo -e "───────────────────────────────────────" | lolcat
+echo -e "${HINFO}      AutoReboot : On ${NC}"
+echo -e "${HINFO}      AutoReboot Every : 1 Hour ${NC}"
+echo -e "───────────────────────────────────────" | lolcat
 service cron reload >/dev/null 2>&1
 service cron restart >/dev/null 2>&1
+echo ""
+read -n 1 -s -r -p "Press any key to back on menu reboot"
+autoreboot
 ;;
 3)
 echo "0 */12 * * * root /usr/bin/reboot" > /etc/cron.d/auto_reboot && chmod +x /etc/cron.d/auto_reboot
 echo "" > /root/log-reboot.txt
 echo -e ""
-echo -e "======================================"
-echo -e ""
-echo -e "      AutoReboot : On"
-echo -e "      AutoReboot Every : 12 Hours"
-echo -e ""
-echo -e "======================================"
+echo -e "───────────────────────────────────────" | lolcat
+echo -e "${HINFO}      AutoReboot : On ${NC}"
+echo -e "${HINFO}      AutoReboot Every : 12 Hours ${NC}"
+echo -e "───────────────────────────────────────" | lolcat
 service cron reload >/dev/null 2>&1
 service cron restart >/dev/null 2>&1
+echo ""
+read -n 1 -s -r -p "Press any key to back on menu reboot"
+autoreboot
 ;;
 4)
 echo "0 0 * * * root /usr/bin/reboot" > /etc/cron.d/auto_reboot && chmod +x /etc/cron.d/auto_reboot
 echo "" > /root/log-reboot.txt
 echo -e ""
-echo -e "======================================"
-echo -e ""
-echo -e "      AutoReboot : On"
-echo -e "      AutoReboot Every : 24 Hours"
-echo -e ""
-echo -e "======================================"
+echo -e "───────────────────────────────────────" | lolcat
+echo -e "${HINFO}      AutoReboot : On ${NC}"
+echo -e "${HINFO}      AutoReboot Every : 24 Hours ${NC}"
+echo -e "───────────────────────────────────────" | lolcat
 service cron reload >/dev/null 2>&1
 service cron restart >/dev/null 2>&1
+echo ""
+read -n 1 -s -r -p "Press any key to back on menu reboot"
+autoreboot
 ;;
 5)
 echo "0 0 */7 * * root /usr/bin/reboot" > /etc/cron.d/auto_reboot && chmod +x /etc/cron.d/auto_reboot
 echo "" > /root/log-reboot.txt
 echo -e ""
-echo -e "======================================"
-echo -e "      AutoReboot : On"
-echo -e "      AutoReboot Every : 1 Weeks"
-echo -e "======================================"
+echo -e "───────────────────────────────────────" | lolcat
+echo -e "${HINFO}      AutoReboot : On ${NC}"
+echo -e "${HINFO}      AutoReboot Every : 1 Week ${NC}"
+echo -e "───────────────────────────────────────" | lolcat
 service cron reload >/dev/null 2>&1
 service cron restart >/dev/null 2>&1
+echo ""
+read -n 1 -s -r -p "Press any key to back on menu reboot"
+autoreboot
 ;;
 6)
 echo "0 0 1 * * root /usr/bin/reboot" > /etc/cron.d/auto_reboot && chmod +x /etc/cron.d/auto_reboot
 echo "" > /root/log-reboot.txt
 echo -e ""
-echo -e "======================================"
-echo -e ""
-echo -e "      AutoReboot : On"
-echo -e "      AutoReboot Every : 1 Mount"
-echo -e ""
-echo -e "======================================"
+echo -e "───────────────────────────────────────" | lolcat
+echo -e "${HINFO}      AutoReboot : On ${NC}"
+echo -e "${HINFO}      AutoReboot Every : 1 Month ${NC}"
+echo -e "───────────────────────────────────────" | lolcat
 service cron reload >/dev/null 2>&1
 service cron restart >/dev/null 2>&1
+echo ""
+read -n 1 -s -r -p "Press any key to back on menu reboot"
+autoreboot
 ;;
 7)
 rm -fr /etc/cron.d/auto_reboot
 echo "" > /root/log-reboot.txt
 echo -e ""
-echo -e "======================================"
-echo -e ""
-echo -e "      AutoReboot Turned Off"
-echo -e ""
-echo -e "======================================"
+echo -e "───────────────────────────────────────" | lolcat
+echo -e "${HINFO}      AutoReboot : Off ${NC}"
+echo -e "───────────────────────────────────────" | lolcat
 service cron reload >/dev/null 2>&1
 service cron restart >/dev/null 2>&1
+echo ""
+read -n 1 -s -r -p "Press any key to back on menu reboot"
+autoreboot
 ;;
 x)
 menu
@@ -171,5 +159,4 @@ echo "Please enter an correct number"
 ;;
 esac
 read -n 1 -s -r -p "Press any key to back on menu"
-
 menu

@@ -366,19 +366,19 @@ function autokill(){
 	menu
 }
 clear
-echo -e "${Cyan} ┌─────────────────────────────────────────────────────┐${NC}"
+echo -e "${CYAN} ┌─────────────────────────────────────────────────────┐${NC}"
 echo -e "       ${NC}SSH MENU "
 echo -e ""
-echo -e "     ${Cyan}[${NC}1${Cyan}] Add Account SSH      "
-echo -e "     ${Cyan}[${NC}2${Cyan}] Delete Account SSH      "
-echo -e "     ${Cyan}[${NC}3${Cyan}] Renew Account SSH      "
-echo -e "     ${Cyan}[${NC}4${Cyan}] Check User SSH     "
-echo -e "     ${Cyan}[${NC}5${Cyan}] Multilogin SSH     "
-echo -e "     ${Cyan}[${NC}6${Cyan}] Auto Delete user Expired     "
-echo -e "     ${Cyan}[${NC}7${Cyan}] Auto Kill user SSH    "
-echo -e "     ${Cyan}[${NC}8${Cyan}] Check Member SSH"
-echo -e " ${Cyan}└─────────────────────────────────────────────────────┘${NC}"
-echo -e "     ${Yellow}Press x or [ Ctrl+C ] • To-${NC}Exit${NC}"
+echo -e "     ${CYAN}[${NC}1${CYAN}] Add Account SSH      "
+echo -e "     ${CYAN}[${NC}2${CYAN}] Delete Account SSH      "
+echo -e "     ${CYAN}[${NC}3${CYAN}] Renew Account SSH      "
+echo -e "     ${CYAN}[${NC}4${CYAN}] Check User SSH     "
+echo -e "     ${CYAN}[${NC}5${CYAN}] Multilogin SSH     "
+echo -e "     ${CYAN}[${NC}6${CYAN}] Auto Delete user Expired     "
+echo -e "     ${CYAN}[${NC}7${CYAN}] Auto Kill user SSH    "
+echo -e "     ${CYAN}[${NC}8${CYAN}] Check Member SSH"
+echo -e " ${CYAN}└─────────────────────────────────────────────────────┘${NC}"
+echo -e "     ${YELLOW}Press any key to back on menu"
 echo ""
 read -p " Select menu : " opt
 echo -e ""
@@ -392,6 +392,6 @@ case $opt in
 7) clear ; autokill ;;
 8) clear ; member ;;
 0) clear ; menu ;;
-x) exit ;;
+x) menu ;;
 *) echo -e "" ; echo "Press any key to back on menu" ; sleep 1 ; menu ;;
 esac

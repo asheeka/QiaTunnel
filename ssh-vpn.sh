@@ -460,9 +460,9 @@ history -c
 echo "unset HISTFILE" >> /etc/profile
 
 cd
-yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
+YELLOW() { echo -e "\\033[33;1m${*}\\033[0m"; }
 sleep 1
-yellow "SSH & OVPN install successfully"
+YELLOW "SSH & OVPN install successfully"
 sleep 5
 clear
 rm -fr /root/key.pem >/dev/null 2>&1
