@@ -1,13 +1,35 @@
-# // String / Request Data
+# // Root Checking
+if [ "${EUID}" -ne 0 ]; then
+		echo -e "${HERROR} Please Run This Script As Root User !"
+		exit 1
+fi
+
+# // Color DEFINITION
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export YELLOW='\033[0;33m'
+export BLUE='\033[0;34m'
+export PURPLE='\033[0;35m'
+export CYAN='\033[0;36m'
+export LIGHT='\033[0;37m'
+export NC='\033[0m'
+
+# // Header Color DEFINITON
+export HERROR="[${RED} ERROR ${NC}]"
+export HINFO="[${YELLOW} INFO ${NC}]"
+export HOK="[${GREEN} OK ${NC}]"
+
 IP=$(curl -s ipinfo.io/ip );
 
 clear
 apt install jq curl -y
-read -rp "Enter your domain: " -e domen
+echo -e "${INFO} Give name for your sub domain"
+echo -e "${INFO} Your sub domain will added to (your-sub-domain).pmhm.my.id"
+read -rp " Please enter your sub domain : " -e subdomen
 sub=$(</dev/urandom tr -dc a-z | head -c4)
 #sub=$(premium)
-DOMAIN=${domen}
-SUB_DOMAIN=${sub}.${DOMAIN}
+DOMAIN=pmhm.my.id
+SUB_DOMAIN=${subdomen}.${DOMAIN}
 CF_ID=foreverwelearn@gmail.com
 CF_KEY=1296c6be4d1fd676728ff11f720c3fb31b939
 set -euo pipefail
@@ -40,8 +62,7 @@ echo "Host : $SUB_DOMAIN"
 echo $SUB_DOMAIN > /root/domain
 echo "IP=$SUB_DOMAIN" > /var/lib/scrz-prem/ipvps.conf
 sleep 1
-yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
-yellow "Domain added.."
+echo -e "${INFO} Domain added succesfully.."
 sleep 3
 domain=$(cat /root/domain)
 cp -r /root/domain /etc/xray/domain

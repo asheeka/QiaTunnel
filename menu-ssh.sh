@@ -27,19 +27,8 @@ export BOLD="\e[1m"
 export WARNING="${RED}\e[5m"
 export UNDERLINE="\e[4m"
 
-# // Exporting URL Host
-export Server_URL="raw.githubusercontent.com/asheeka/QiaTunnel/main/test"
-export Server1_URL="raw.githubusercontent.com/asheeka/QiaTunnel/main/limit"
-export Server_Port="443"
-export Server_IP="underfined"
-export Script_Mode="Stable"
-export Auther=".geovpn"
-
 # // Exporting IP Address
 export IP=$( curl -s https://ipinfo.io/ip/ )
-
-# // Exporting Network Interface
-export NETWORK_IFACE="$(ip route show to default | awk '{print $5}')"
 
 clear
 function del(){
