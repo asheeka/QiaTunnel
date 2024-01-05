@@ -10,9 +10,9 @@ export GREEN = "\e[32m"
 export YELLOW = "\e[33m"
 BLUE = "\e[34m"
 PURPLE = "\e[35m"
-CYAN = "\e[36m"
+export CYAN = "\e[36m"
 LIGRAY = "\e[37m"
-NC = "\e[0m"
+export NC = "\e[0m"
 
 # // Header Color DEFINITON
 HERROR="[${RED} ERROR ${NC}]"
