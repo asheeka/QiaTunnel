@@ -15,17 +15,10 @@ export LIGHT='\033[0;37m'
 export NC='\033[0m'
 
 # // Header Color DEFINITON
-HERROR="[${RED} ERROR ${NC}]"
+export HERROR="[${RED} ERROR ${NC}]"
 export HINFO="[${YELLOW} INFO ${NC}]"
-HOK="[${GREEN} OK ${NC}]"
+export HOK="[${GREEN} OK ${NC}]"
 
-# // Get IP Address
-IP=$( curl -s https://ipinfo.io/ip/ )
-
-# // Get Network Interface
-NETWORK_IFACE="$(ip route show to default | awk '{print $5}')"
-
-echo "Checking VPS"
 clear
 if [ ! -e /usr/bin/reboot ]; then
 	echo '#!/bin/bash' > /usr/bin/reboot
@@ -38,7 +31,7 @@ fi
 
 echo -e ""
 echo -e "┌──────────────────────────────────────┐" | lolcat
-echo -e "|             AUTO REBOOT              |"| lolcat
+echo -e "|             AUTO REBOOT              |"
 echo -e "└──────────────────────────────────────┘" | lolcat
 echo -e ""
 echo -e "    [ ${CYAN}1${NC} ]  Auto Reboot 30 Minutes"
