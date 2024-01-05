@@ -1,12 +1,11 @@
 dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 # // Root Checking
 if [ "${EUID}" -ne 0 ]; then
-	echo -e "${EROR} Please Run This Script As Root User !"
-	exit 1
+		echo -e "${HERROR} Please Run This Script As Root User !"
+		exit 1
 fi
-clear
 
-# // Export Color & Information
+# // Color DEFINITION
 export RED='\033[0;31m'
 export GREEN='\033[0;32m'
 export YELLOW='\033[0;33m'
@@ -16,22 +15,10 @@ export CYAN='\033[0;36m'
 export LIGHT='\033[0;37m'
 export NC='\033[0m'
 
-# // Export Banner Status Information
-export EROR="[${RED} ERROR ${NC}]"
-export INFO="[${YELLOW} INFO ${NC}]"
-export OKEY="[${GREEN} OKEY ${NC}]"
-export PENDING="[${YELLOW} PENDING ${NC}]"
-export SEND="[${YELLOW} SEND ${NC}]"
-export RECEIVE="[${YELLOW} RECEIVE ${NC}]"
-
-# // Export Align
-export BOLD="\e[1m"
-export WARNING="${RED}\e[5m"
-export UNDERLINE="\e[4m"
-
-# // Exporting Language to UTF-8
-export LANG='en_US.UTF-8'
-export LANGUAGE='en_US.UTF-8'
+# // Header Color DEFINITON
+export HERROR="[${RED} ERROR ${NC}]"
+export HINFO="[${YELLOW} INFO ${NC}]"
+export HOK="[${GREEN} OK ${NC}]"
 
 # // Exporting Script Version
 export VERSION="1.1"
@@ -44,30 +31,30 @@ ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 
 # // cek old script
 if [[ -r /etc/xray/domain ]]; then
-	echo -e "${INFO} Having Script Detected !"
-	echo -e "${INFO} If You Replacing Script, All Client Data On This VPS Will Be Cleanup !"
-	read -p "Are You Sure Wanna Replace Script ? (Y/N) " ReplaceScript
+	echo -e "${HINFO} Having Script Detected !"
+	echo -e "${HINFO} If You Replacing Script, All Client Data On This VPS Will Be Cleanup !"
+	read -p " Are You Sure Wanna Replace Script ? (Y/N) " ReplaceScript
 	if [[ $ReplaceScript == "Y" ]]; then
 		clear
-		echo -e "${INFO} Starting Replacing Script !"
+		echo -e "${HINFO} Starting Replacing Script !"
 	elif [[ $ReplaceScript == "y" ]]; then
 		clear
-		echo -e "${INFO} Starting Replacing Script !"
+		echo -e "${HINFO} Starting Replacing Script !"
 		rm -rf /var/lib/scrz-prem 
 	elif [[ $ReplaceScript == "N" ]]; then
-		echo -e "${INFO} Action Canceled !"
+		echo -e "${HINFO} Action Canceled !"
 		exit 1
 	elif [[ $ReplaceScript == "n" ]]; then
-		echo -e "${INFO} Action Canceled !"
+		echo -e "${HINFO} Action Canceled !"
 		exit 1
 	else
-		echo -e "${EROR} Your Input Is Wrong !"
+		echo -e "${HERROR} Your Input Is Wrong !"
 		exit 1
 	fi
 	clear
 fi
 
-echo -e "${INFO} Starting Installation............"
+echo -e "${HINFO} Starting Installation............"
 # // Go To Root Directory
 cd /root/
 # // Remove
@@ -94,8 +81,7 @@ gem install lolcat
 
 # // Clear
 clear
-clear && clear && clear
-clear;clear;clear
+clear
 
 # // Folder Sistem Yang Tidak Boleh Di Hapus
 mkdir -p /usr/bin
@@ -109,7 +95,6 @@ rm -fr /var/lib/scrz-prem/
 mkdir -p /etc/nginx
 mkdir -p /var/lib/scrz-prem/
 
-
 # // String / Request Data
 mkdir -p /var/lib/scrz-prem >/dev/null 2>&1
 echo "IP=$host" >> /var/lib/scrz-prem/ipvps.conf
@@ -117,16 +102,17 @@ echo $host > /root/domain
 sleep 2
 
 echo -e "$[GREEN]┌─────────────────────────────────────────┐${NC}"
-echo -e "$[YELLOW]              ⇱ INSTALL DOMAIN ⇲           ${NC}"
+echo -e "$[YELLOW]                INSTALL DOMAIN             ${NC}"
 echo -e "$[GREEN]└─────────────────────────────────────────┘${NC}"
 sleep 1
 wget https://raw.githubusercontent.com/asheeka/QiaTunnel/main/cf.sh && chmod +x cf.sh && ./cf.sh
 
 #install ssh-vpn
 echo -e "$[GREEN]┌─────────────────────────────────────────┐${NC}"
-echo -e "$[YELLOW]           ⇱ Install SSH / WS ⇲          ${NC}"
+echo -e "$[YELLOW]             Install SSH / WS            ${NC}"
 echo -e "$[GREEN]└─────────────────────────────────────────┘${NC}"
 sleep 1
+
 wget -q https://raw.githubusercontent.com/asheeka/QiaTunnel/main/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
 wget -q https://raw.githubusercontent.com/asheeka/QiaTunnel/main/ins-xray.sh && chmod +x ins-xray.sh && ./ins-xray.sh
 
@@ -199,6 +185,7 @@ mesg n || true
 clear
 menu
 END
+
 chmod 644 /root/.profile
 
 if [ -f "/root/log-install.txt" ]; then
@@ -219,7 +206,7 @@ gg="PM"
 else
 gg="AM"
 fi
-echo -e "[ ${green}Pleas Wait Update DB ${NC} ]"
+echo -e "[ ${green}Please Wait Update DB ${NC} ]"
 git clone https://github.com/asheeka/limit.git /root/limit/ &> /dev/null
 babu=$(cat /etc/.geovpn/license.key)
 echo -e "$babu $IP $Masa_Laku_License_Berlaku_Sampai" >> /root/limit/limit.txt
@@ -238,7 +225,7 @@ echo "1.1" >> /home/.ver
 rm -fr /root/limit
 curl -s https://ipinfo.io/ip > /etc/myipvps
 echo ""
-echo "=======================-[ TUNNELING ]-======================"
+echo "=======================-[ ${GREEN}TUNNELING${NC} ]-======================"
 echo ""
 echo "------------------------------------------------------------"
 echo ""
@@ -257,7 +244,7 @@ echo "   - Dflate                  : [ON]"  | tee -a log-install.txt
 echo "   - IPtables                : [ON]"  | tee -a log-install.txt
 echo "   - Auto-Reboot             : [ON]"  | tee -a log-install.txt
 echo "   - IPv6                    : [OFF]"  | tee -a log-install.txt
-echo "   - Autoreboot Off          : $aureb:00 $gg GMT + 8" | tee -a log-install.txt
+echo "   - Autoreboot Off          : $aureb:00 $gg GMT + 7" | tee -a log-install.txt
 echo "   - Autobackup Data" | tee -a log-install.txt
 echo "   - AutoKill Multi Login User" | tee -a log-install.txt
 echo "   - Auto Delete Expired Account" | tee -a log-install.txt
@@ -269,7 +256,7 @@ echo "   - Restore Data" | tee -a log-install.txt
 echo ""
 echo "------------------------------------------------------------"
 echo ""
-echo "=======================-[ TUNNELING ]-======================"
+echo "=======================-[ ${GREEN}TUNNELING${NC} ]-======================"
 echo -e ""
 echo ""
 echo "" | tee -a log-install.txt

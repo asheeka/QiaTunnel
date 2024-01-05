@@ -1,15 +1,13 @@
 # // String / Request Data
-# Getting
-
-MYIP=$(curl -sS ipv4.icanhazip.com);
 IP=$(curl -s ipinfo.io/ip );
 
 clear
 apt install jq curl -y
+read -rp "Enter your domain: " -e domen
 sub=$(</dev/urandom tr -dc a-z | head -c4)
 #sub=$(premium)
-DOMAIN=onedata.my.id
-SUB_DOMAIN=${sub}.onedata.my.id
+DOMAIN=${domen}
+SUB_DOMAIN=${sub}.${DOMAIN}
 CF_ID=foreverwelearn@gmail.com
 CF_KEY=1296c6be4d1fd676728ff11f720c3fb31b939
 set -euo pipefail
@@ -46,4 +44,4 @@ yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
 yellow "Domain added.."
 sleep 3
 domain=$(cat /root/domain)
-#cp -r /root/domain /etc/xray/domain
+cp -r /root/domain /etc/xray/domain

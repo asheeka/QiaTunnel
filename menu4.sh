@@ -147,7 +147,7 @@ echo -e "${YELLOW} └───────────────────�
 echo -e "${CYAN}  SSH ${NC}: $ressh"" ${CYAN} NGINX ${NC}: $resngx"" ${CYAN}  XRAY ${NC}: $resv2r"" ${CYAN} TROJAN ${NC}: $resv2r"
 echo -e "${CYAN}  DROPBEAR ${NC}: $resdbr" "${CYAN} SSH-WS ${NC}: $ressshws" "${CYAN}Stunnel ${NC}: $sshstunel"
 echo -e "${YELLOW} ┌──────────────────────────────────────────────┐${NC}"
-echo -e "     ${CYAN}[${NC}01${CYAN}] SSHWS       ${NC}[ ${YELLOW}${ssh}${CYAN} ] ${NC}" 
+echo -e "     ${CYAN}[${NC}01${CYAN}] ${NC}SSHWS       ${NC}[ ${YELLOW}${ssh}${CYAN} ] ${NC}" 
 echo -e "" 
 echo -e "     ${CYAN}[${NC}02${CYAN}] ${NC}AUTO REBOOT         ${CYAN}[${NC}10${CYAN}] ${NC}SPEED TEST "    
 echo -e "     ${CYAN}[${NC}03${CYAN}] ${NC}REBOOT              ${CYAN}[${NC}11${CYAN}] ${NC}LIMIT SPEED "    
