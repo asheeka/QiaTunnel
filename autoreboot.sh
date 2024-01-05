@@ -5,14 +5,14 @@ if [ "${EUID}" -ne 0 ]; then
 fi
 
 # // Color DEFINITION
-RED = "\e[31m"
-export GREEN = "\e[32m"
-export YELLOW = "\e[33m"
-BLUE = "\e[34m"
-PURPLE = "\e[35m"
-export CYAN = "\e[36m"
-LIGRAY = "\e[37m"
-export NC = "\e[0m"
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export YELLOW='\033[0;33m'
+export BLUE='\033[0;34m'
+export PURPLE='\033[0;35m'
+export CYAN='\033[0;36m'
+export LIGHT='\033[0;37m'
+export NC='\033[0m'
 
 # // Header Color DEFINITON
 HERROR="[${RED} ERROR ${NC}]"
