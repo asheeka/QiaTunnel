@@ -4,7 +4,7 @@ if [ "${EUID}" -ne 0 ]; then
 		exit 1
 fi
 
-# // Export Color & Information
+# // Color DEFINITION
 export RED='\033[0;31m'
 export GREEN='\033[0;32m'
 export YELLOW='\033[0;33m'
@@ -14,32 +14,10 @@ export CYAN='\033[0;36m'
 export LIGHT='\033[0;37m'
 export NC='\033[0m'
 
-# // Export Banner Status Information
-export EROR="[${RED} ERROR ${NC}]"
-export INFO="[${YELLOW} INFO ${NC}]"
-export OKEY="[${GREEN} OKEY ${NC}]"
-export PENDING="[${YELLOW} PENDING ${NC}]"
-export SEND="[${YELLOW} SEND ${NC}]"
-export RECEIVE="[${YELLOW} RECEIVE ${NC}]"
-
-# // Export Align
-export BOLD="\e[1m"
-export WARNING="${RED}\e[5m"
-export UNDERLINE="\e[4m"
-
-# // Exporting URL Host
-export Server_URL="raw.githubusercontent.com/asheeka/QiaTunnel/main/test"
-export Server1_URL="raw.githubusercontent.com/asheeka/QiaTunnel/main/limit"
-export Server_Port="443"
-export Server_IP="underfined"
-export Script_Mode="Stable"
-export Auther=".geovpn"
-
-# // Exporting IP Address
-export IP=$( curl -s https://ipinfo.io/ip/ )
-
-# // Exporting Network Interface
-export NETWORK_IFACE="$(ip route show to default | awk '{print $5}')"
+# // Header Color DEFINITON
+export HERROR="[${RED} ERROR ${NC}]"
+export HINFO="[${YELLOW} INFO ${NC}]"
+export HOK="[${GREEN} OK ${NC}]"
 
 # // Clear
 clear
@@ -83,7 +61,6 @@ fi
 
 function addhost(){
 	clear
-	export GREEN='\033[0;32m'
 	echo -e "${GREEN}┌─────────────────────────────────────────┐${NC}"
 	read -rp "Domain/Host: " -e host
 	echo ""
@@ -112,10 +89,10 @@ function genssl(){
 	Cek=$(lsof -i:80 | cut -d' ' -f1 | awk 'NR==2 {print $1}')
 	if [[ ! -z "$Cek" ]]; then
 		sleep 1
-		echo -e "${EROR} Detected port 80 used by $Cek " 
+		echo -e "${HERROR} Detected port 80 used by $Cek " 
 		systemctl stop $Cek
 		sleep 2
-		echo -e "${INFO} Processing to stop $Cek " 
+		echo -e "${HINFO} Processing to stop $Cek " 
 		sleep 1
 	fi
 	echo -e "${INFO} Starting renew gen-ssl... " 
@@ -125,14 +102,14 @@ function genssl(){
 	/root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
 	/root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256
 	~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
-	echo -e "${INFO} Renew gen-ssl done... " 
+	echo -e "${HINFO} Renew gen-ssl done... " 
 	sleep 2
-	echo -e "${INFO} Starting service $Cek " 
+	echo -e "${HINFO} Starting service $Cek " 
 	sleep 2
 	echo $domain > /root/domain
 	systemctl start nginx
 	#systemctl start xray
-	echo -e "${INFO} All finished... " 
+	echo -e "${HINFO} All finished... " 
 	sleep 0.5
 	echo ""
 	read -n 1 -s -r -p " Press any key to back on menu"
@@ -142,7 +119,6 @@ export sem=$( curl -s https://raw.githubusercontent.com/asheeka/QiaTunnel/main/t
 export pak=$( cat /home/.ver)
 IPVPS=$(curl -s ipinfo.io/ip )
 ISPVPS=$( curl -s ipinfo.io/org | awk '{print $1 " " $2 " " $3}')
-
 ram_used=$(free -m | grep Mem: | awk '{print $3}')
 total_ram=$(free -m | grep Mem: | awk '{print $2}')
 ram_usage=$(echo "scale=2; ($ram_used / $total_ram) * 100" | bc | cut -d. -f1)
@@ -167,7 +143,6 @@ echo -e "${YELLOW} │  ${CYAN}Total RAM    :  ${NC}${ram_used}MB / ${total_ram}
 echo -e "${YELLOW} │  ${CYAN}Domain       :  ${NC}$(cat /root/domain)" 
 echo -e "${YELLOW} │  ${CYAN}IP-VPS       :  ${NC}$IPVPS"                  
 echo -e "${YELLOW} │  ${CYAN}ISP-VPS      :  ${NC}$ISPVPS"  
-echo -e "${YELLOW} │  ${CYAN}Bandwidth    :  ${NC}$monthly_usage"
 echo -e "${YELLOW} └──────────────────────────────────────────────┘${NC}"
 echo -e "${CYAN}  SSH ${NC}: $ressh"" ${CYAN} NGINX ${NC}: $resngx"" ${CYAN}  XRAY ${NC}: $resv2r"" ${CYAN} TROJAN ${NC}: $resv2r"
 echo -e "${CYAN}  DROPBEAR ${NC}: $resdbr" "${CYAN} SSH-WS ${NC}: $ressshws" "${CYAN}Stunnel ${NC}: $sshstunel"
