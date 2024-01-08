@@ -48,6 +48,7 @@ rm -fr /usr/bin/usernew
 echo -e "${HOK} Delete UserNew"
 rm -fr /usr/bin/wbm
 echo -e "${HOK} Delete Webmin"
+rm -fr /usr/bin/updatemenu
 sleep 2
 
 # // Download Data
@@ -66,6 +67,7 @@ wget -q -O /usr/bin/cek-speed "https://raw.githubusercontent.com/asheeka/QiaTunn
 wget -q -O /usr/bin/tendang "https://raw.githubusercontent.com/asheeka/QiaTunnel/main/tendang.sh"
 wget -q -O /usr/bin/usernew "https://raw.githubusercontent.com/asheeka/QiaTunnel/main/usernew.sh"
 wget -q -O /usr/bin/wbm "https://raw.githubusercontent.com/asheeka/QiaTunnel/main/webmin.sh"
+wget -q -O /usr/bin/updatemenu "https://raw.githubusercontent.com/asheeka/QiaTunnel/main/updatemenu.sh"
 echo -e "${HOK} Download data finished"
 sleep 2
 
@@ -83,6 +85,7 @@ chmod +x /usr/bin/cek-speed
 chmod +x /usr/bin/tendang
 chmod +x /usr/bin/usernew
 chmod +x /usr/bin/wbm
+chmod +x /usr/bin/updatemenu
 echo -e "${HINFO}Update Finish..${NC}"
 sleep 2
 read -p "$( echo -e "Press ${YELLOW}[ ${NC}${GREEN}Enter${NC} ${CYAN}]${NC} For Reboot") "
