@@ -67,6 +67,5 @@ echo "IP=$SUB_DOMAIN" > /var/lib/scrz-prem/ipvps.conf
 sleep 1
 echo -e "${HINFO} Domain added succesfully.."
 sleep 5
-domain=$(cat /root/domain)
 #cp -r /root/domain /etc/xray/domain
 rm -f /root/cf.sh
