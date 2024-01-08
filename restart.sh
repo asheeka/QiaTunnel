@@ -46,7 +46,7 @@ case $Restart in
                 clear
                 #systemctl restart ws-dropbear.service >/dev/null 2>&1
                 systemctl restart ws-stunnel.service >/dev/null 2>&1
-                systemctl restart xray.service >/dev/null 2>&1
+                #systemctl restart xray.service >/dev/null 2>&1
                 /etc/init.d/ssh restart
                 /etc/init.d/dropbear restart
                 /etc/init.d/stunnel5 restart
