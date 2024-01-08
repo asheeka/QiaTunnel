@@ -34,3 +34,5 @@ echo > /var/log/btmp
 echo > /var/log/messages
 echo > /var/log/debug
 echo -e "DONE"
+read -p "$( echo -e "Press any key to continue") "
+menu
