@@ -265,7 +265,7 @@ echo ""
 echo "" | tee -a log-install.txt
 rm -fr /root/ssh-vpn.sh
 rm -fr /root/setup.sh
-rm -fr /root/domain
+#rm -fr /root/domain
 history -c
 read -p "$( echo -e "Press ${orange}[ ${NC}${green}Enter${NC} ${CYAN}]${NC} For Reboot") "
 reboot
