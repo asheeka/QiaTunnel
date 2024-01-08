@@ -42,13 +42,6 @@ export BOLD="\e[1m"
 export WARNING="${RED}\e[5m"
 export UNDERLINE="\e[4m"
 
-# // Exporting URL Host
-export Server_URL="raw.githubusercontent.com/asheeka/Blueblue/main/test"
-export Server1_URL="raw.githubusercontent.com/asheeka/Blueblue/main/limit"
-export Server_Port="443"
-export Server_IP="underfined"
-export Script_Mode="Stable"
-export Auther=".geovpn"
 
 # // Root Checking
 if [ "${EUID}" -ne 0 ]; then
@@ -59,13 +52,8 @@ fi
 # // Exporting IP Address
 export IP=$( curl -s https://ipinfo.io/ip )
 
-# // Exporting Network Interface
-export NETWORK_IFACE="$(ip route show to default | awk '{print $5}')"
 
-GREEN='\033[0;32m'
-PURPLE='\033[0;35m'
-CYAN='\033[0;36m'
-NC='\033[0m'
+
 yl='\e[32;1m'
 bl='\e[36;1m'
 gl='\e[32;1m'
@@ -81,7 +69,6 @@ color3='\e[0m'
 # Getting
 # IP Validation
 dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 #########################
 
 MYIP=$(curl -sS ipinfo.io/ip)
