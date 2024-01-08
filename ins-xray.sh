@@ -5,6 +5,9 @@ if [ "${EUID}" -ne 0 ]; then
 		exit 1
 fi
 
+clear
+
+
 # // Color DEFINITION
 export RED='\033[0;31m'
 export GREEN='\033[0;32m'
@@ -46,6 +49,10 @@ apt install curl pwgen openssl netcat cron -y
 # Make Folder & Log XRay & Log Trojan
 rm -fr /home/vps/public_html
 mkdir -p /home/vps/public_html
+# / / Make Main Directory
+mkdir -p /usr/bin/xray
+mkdir -p /etc/xray
+mkdir -p /usr/local/etc/xray
 chown www-data.www-data /etc/xray
 
 # Make Log Autokill & Log Autoreboot
@@ -110,11 +117,6 @@ rm -fr /etc/nginx/sites-available/default
 wget -q -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/asheeka/QiaTunnel/main/nginx.conf" 
 mkdir -p /home/vps/public_html
 wget -q -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/asheeka/QiaTunnel/main/vps.conf"
-
-# / / Make Main Directory
-mkdir -p /usr/bin/xray
-mkdir -p /etc/xray
-mkdir -p /usr/local/etc/xray
 
 # // Making Certificate
 clear

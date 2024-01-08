@@ -1,5 +1,4 @@
 #!/bin/bash
-# // Color DEFINITION
 export RED='\033[0;31m'
 export GREEN='\033[0;32m'
 export YELLOW='\033[0;33m'
@@ -9,7 +8,6 @@ export CYAN='\033[0;36m'
 export LIGHT='\033[0;37m'
 export NC='\033[0m'
 
-# // Header Color DEFINITON
 export HERROR="[${RED} ERROR ${NC}]"
 export HINFO="[${YELLOW} INFO ${NC}]"
 export HOK="[${GREEN} OK ${NC}]"
@@ -23,7 +21,7 @@ fi
  
 clear
 
-IP=$(curl -s ipinfo.io/ip );
+IP=$(curl -s ipinfo.io/ip )
 
 clear
 
@@ -67,7 +65,7 @@ echo "Host : $SUB_DOMAIN"
 echo $SUB_DOMAIN > /root/domain
 echo "IP=$SUB_DOMAIN" > /var/lib/scrz-prem/ipvps.conf
 sleep 1
-echo -e "${INFO} Domain added succesfully.."
+echo -e "${HINFO} Domain added succesfully.."
 sleep 5
 domain=$(cat /root/domain)
 #cp -r /root/domain /etc/xray/domain
