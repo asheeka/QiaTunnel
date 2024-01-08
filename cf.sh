@@ -64,8 +64,13 @@ RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_r
 echo "Host : $SUB_DOMAIN"
 echo $SUB_DOMAIN > /root/domain
 echo "IP=$SUB_DOMAIN" > /var/lib/scrz-prem/ipvps.conf
+
 sleep 1
+
 echo -e "${HINFO} Domain added succesfully.."
+
 sleep 5
+
 #cp -r /root/domain /etc/xray/domain
+
 rm -f /root/cf.sh
