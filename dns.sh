@@ -24,15 +24,15 @@ export WARNING="${RED}\e[5m"
 export UNDERLINE="\e[4m"
 
 clear
-echo -e "$[GREEN]┌─────────────────────────────────────────┐${NC}"
-echo -e "$[YELLOW]               ⇱ DNS CHANGER ⇲            ${NC}"
-echo -e "$[GREEN]└─────────────────────────────────────────┘${NC}"
+echo -e "${GREEN}┌─────────────────────────────────────────┐${NC}"
+echo -e "${YELLOW}               ⇱ DNS CHANGER ⇲            ${NC}"
+echo -e "${GREEN}└─────────────────────────────────────────┘${NC}"
 
 dnsfile="/root/dns"
 if test -f "$dnsfile"; then
 udns=$(cat /root/dns)
 echo -e ""
-echo -e "   Active DNS : $[CYAN]$udns$[NC]"
+echo -e "   Active DNS : ${CYAN}$udns${NC}"
 fi
 echo -e "
  [\033[1;36m 1 \033[0m]  Temporary DNS
@@ -105,15 +105,15 @@ case $dns in
 	if [ "$answer" = 'y' ] || [ "$answer" = 'Y' ]; then
 	rm /root/dns
 	echo ""
-	echo -e "[ ${G}INFO${NC} ] Delete Resolv.conf DNS"
+	echo -e "${INFO} Delete Resolv.conf DNS"
 	echo "nameserver 8.8.8.8" > /etc/resolv.conf
 	sleep 1
-	echo -e "[ ${G}INFO${NC} ] Delete Resolv.conf.d/head DNS"
+	echo -e "${INFO} Delete Resolv.conf.d/head DNS"
 	echo "nameserver 8.8.8.8" > /etc/resolvconf/resolv.conf.d/head
 	sleep 1
 	else if [ "$answer" = 'n' ] || [ "$answer" = 'N' ]; then
 	echo -e ""
-	echo -e "[ ${G}INFO${NC} ] Operation Cancelled By User"
+	echo -e "${INFO} Operation Cancelled By User"
 	sleep 1
 	fi
 	fi
