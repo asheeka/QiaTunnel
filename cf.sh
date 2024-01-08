@@ -1,4 +1,4 @@
-
+#!/bin/bash
 # // Color DEFINITION
 export RED='\033[0;31m'
 export GREEN='\033[0;32m'
@@ -15,21 +15,25 @@ export HINFO="[${YELLOW} INFO ${NC}]"
 export HOK="[${GREEN} OK ${NC}]"
 
 # // Root Checking
-if [ "${EUID}" -ne 0 ]; then
-		echo -e "${HERROR} Please Run This Script As Root User !"
-		exit 1
+if [ ${EUID} -ne 0 ]; then
+	echo -e "${HERROR} Please Run This Script As Root User !"
+	exit 1
 fi
+
+ 
+clear
 
 IP=$(curl -s ipinfo.io/ip );
 
 clear
-apt install jq curl -y
+
+DOMAIN=pmhm.my.id
+
 echo -e "${HINFO} Give name for your sub domain"
 echo -e "${HINFO} Your sub domain will added to (your-sub-domain).pmhm.my.id"
 read -rp " Please enter your sub domain : " -e subdomen
-sub=$(</dev/urandom tr -dc a-z0-9 | head -c6)
+#sub=$(</dev/urandom tr -dc a-z0-9 | head -c6)
 #sub=$(premium)
-DOMAIN=pmhm.my.id
 SUB_DOMAIN=${subdomen}.${DOMAIN}
 CF_ID=foreverwelearn@gmail.com
 CF_KEY=1296c6be4d1fd676728ff11f720c3fb31b939
