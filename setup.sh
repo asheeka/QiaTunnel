@@ -103,9 +103,9 @@ echo "IP=$host" >> /var/lib/scrz-prem/ipvps.conf
 echo $host > /root/domain
 sleep 2
 
-echo -e "${GREEN}┌─────────────────────────────────────────┐${NC}"
-echo -e "${YELLOW}                INSTALL DOMAIN             ${NC}"
-echo -e "${GREEN}└─────────────────────────────────────────┘${NC}"
+echo -e "$GREEN┌─────────────────────────────────────────┐$NC"
+echo -e "$YELLOW                INSTALL DOMAIN             $NC"
+echo -e "$GREEN└─────────────────────────────────────────┘$NC"
 sleep 1
 wget https://raw.githubusercontent.com/asheeka/QiaTunnel/main/cf.sh && chmod +x cf.sh && ./cf.sh
 
