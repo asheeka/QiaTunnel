@@ -441,10 +441,12 @@ sleep 1
 echo -e "${INFO} Restarting stunnel5"
 #/etc/init.d/vnstat restart >/dev/null 2>&1
 sleep 1
-echo -e "${INFO} Restarting squid "
+echo -e "${INFO} Restarting BadVPN "
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7100 --max-clients 500 >/dev/null 2>&1
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7200 --max-clients 500 >/dev/null 2>&1
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 500 >/dev/null 2>&1
+sleep 1
+echo -e "${INFO} Restarting BadVPN "
 history -c
 echo "unset HISTFILE" >> /etc/profile
 

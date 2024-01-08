@@ -189,6 +189,20 @@ chown -R www-data:www-data /home/vps/public_html
 # Enable & Restart & Xray & Trojan & Nginx
 sleep 1
 echo -e "${HINFO} Restart & Xray & Nginx"
+
+Cek=$(lsof -i:80 | cut -d' ' -f1 | awk 'NR==2 {print $1}')
+	if [[ ! -z "$Cek" ]]; then
+		sleep 1
+		echo -e "${HERROR} Detected port 80 used by $Cek " 
+		systemctl stop $Cek
+		sleep 2
+		echo -e "${HINFO} Processing to stop $Cek " 
+		sleep 1
+	fi
+	
 systemctl daemon-reload >/dev/null 2>&1
 systemctl restart nginx >/dev/null 2>&1
+systemctl enable stunnel5 >/dev/null 2>&1
+systemctl start stunnel5 >/dev/null 2>&1
+systemctl restart stunnel5 >/dev/null 2>&1
 sleep 5
