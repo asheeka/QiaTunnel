@@ -26,7 +26,7 @@ apt install jq curl -y
 echo -e "${INFO} Give name for your sub domain"
 echo -e "${INFO} Your sub domain will added to (your-sub-domain).pmhm.my.id"
 read -rp " Please enter your sub domain : " -e subdomen
-sub=$(</dev/urandom tr -dc a-z | head -c4)
+sub=$(</dev/urandom tr -dc a-z0-9 | head -c6)
 #sub=$(premium)
 DOMAIN=pmhm.my.id
 SUB_DOMAIN=${subdomen}.${DOMAIN}
@@ -66,3 +66,4 @@ echo -e "${INFO} Domain added succesfully.."
 sleep 3
 domain=$(cat /root/domain)
 cp -r /root/domain /etc/xray/domain
+rm -f /root/cf.sh
