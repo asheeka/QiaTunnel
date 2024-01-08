@@ -103,16 +103,16 @@ echo "IP=$host" >> /var/lib/scrz-prem/ipvps.conf
 echo $host > /root/domain
 sleep 2
 
-echo -e "$GREEN┌─────────────────────────────────────────┐$NC"
-echo -e "$YELLOW                INSTALL DOMAIN             $NC"
-echo -e "$GREEN└─────────────────────────────────────────┘$NC"
+echo  "┌─────────────────────────────────────────┐"
+echo  "                INSTALL DOMAIN             "
+echo  "└─────────────────────────────────────────┘"
 sleep 1
 wget https://raw.githubusercontent.com/asheeka/QiaTunnel/main/cf.sh && chmod +x cf.sh && ./cf.sh
 
 #install ssh-vpn
-echo -e "${GREEN}┌─────────────────────────────────────────┐${NC}"
-echo -e "${YELLOW}             Install SSH / WS            ${NC}"
-echo -e "${GREEN}└─────────────────────────────────────────┘${NC}"
+echo  "┌─────────────────────────────────────────┐"
+echo  "             Install SSH / WS            "
+echo  "└─────────────────────────────────────────┘"
 sleep 1
 
 wget -q https://raw.githubusercontent.com/asheeka/QiaTunnel/main/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
