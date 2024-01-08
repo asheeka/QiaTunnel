@@ -1,11 +1,7 @@
- <p align="center">
-
-
+<p align="center">
 <h2 align="center">
-Auto Script Install SSH Websocket Service
-Mod By Asheeka
-<img src="https://img.shields.io/badge/Release-v3.0-red.svg"></h2>
-
+Auto Script Install SSH Websocket Service Mod By Asheeka
+<img src="https://img.shields.io/badge/Release-v1.0-red.svg"></h2>
 </p> 
 <h2 align="center"> Supported Linux Distribution</h2>
 <p align="center"><img src="https://d33wubrfki0l68.cloudfront.net/5911c43be3b1da526ed609e9c55783d9d0f6b066/9858b/assets/img/debian-ubuntu-hover.png"width="400"></p> 
@@ -19,17 +15,14 @@ Mod By Asheeka
 </p>
 
 <h2 align="center">
-
 ![Hits](https://img.shields.io/badge/SSH-Websocket-8020f3?style=for-the-badge&logo=Cloudflare&logoColor=white&edge_flat=false)
 </h2>
 
 PLEASE MAKE SURE YOUR DOMAIN SETTINGS IN YOUR CLOUDFLARE AS BELOW (SSL/TLS SETTINGS)<br>
 <br>
-
 1. Your SSL/TLS encryption mode is Full
 2. Enable SSL/TLS Recommender ✅
 3. Edge Certificates > Disable Always Use HTTPS (off)
-
 <br>
 ♦️ For Debian 9 / 10 / 11 For First Time Installation (Update Repo) <br>
  
@@ -46,7 +39,6 @@ PLEASE MAKE SURE YOUR DOMAIN SETTINGS IN YOUR CLOUDFLARE AS BELOW (SSL/TLS SETTI
   ```html
 apt --fix-missing update && apt update && apt upgrade -y && apt install -y bzip2 gzip coreutils screen dpkg wget vim curl nano zip unzip && wget -q https://raw.githubusercontent.com/asheeka/QiaTunnel/main/setup.sh && chmod +x setup.sh && screen -S setup ./setup.sh
   ```
-
 <b>
 
 [ SERVICES ] <br>
@@ -63,8 +55,6 @@ apt --fix-missing update && apt update && apt upgrade -y && apt install -y bzip2
 ✅ CHECK CREATED CONFIG <br>
 ✅ AUTOMATIC CLEAR LOG <br>
 ✅ AUTOMATIC VPS REBOOT <br>
-✅ BACKUP & RESTORE <br>
-✅ XRAYCORE CHANGER <br></br>
 
 
 ```
@@ -91,6 +81,5 @@ apt --fix-missing update && apt update && apt upgrade -y && apt install -y bzip2
    - Fully automatic script
    - VPS settings
    - Admin Control
-   - Restore Data
    - Free
 ```
