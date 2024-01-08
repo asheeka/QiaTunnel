@@ -1,8 +1,3 @@
-# // Root Checking
-if [ "${EUID}" -ne 0 ]; then
-		echo -e "${HERROR} Please Run This Script As Root User !"
-		exit 1
-fi
 
 # // Color DEFINITION
 export RED='\033[0;31m'
@@ -19,12 +14,18 @@ export HERROR="[${RED} ERROR ${NC}]"
 export HINFO="[${YELLOW} INFO ${NC}]"
 export HOK="[${GREEN} OK ${NC}]"
 
+# // Root Checking
+if [ "${EUID}" -ne 0 ]; then
+		echo -e "${HERROR} Please Run This Script As Root User !"
+		exit 1
+fi
+
 IP=$(curl -s ipinfo.io/ip );
 
 clear
 apt install jq curl -y
-echo -e "${INFO} Give name for your sub domain"
-echo -e "${INFO} Your sub domain will added to (your-sub-domain).pmhm.my.id"
+echo -e "${HINFO} Give name for your sub domain"
+echo -e "${HINFO} Your sub domain will added to (your-sub-domain).pmhm.my.id"
 read -rp " Please enter your sub domain : " -e subdomen
 sub=$(</dev/urandom tr -dc a-z0-9 | head -c6)
 #sub=$(premium)
@@ -63,7 +64,7 @@ echo $SUB_DOMAIN > /root/domain
 echo "IP=$SUB_DOMAIN" > /var/lib/scrz-prem/ipvps.conf
 sleep 1
 echo -e "${INFO} Domain added succesfully.."
-sleep 3
+sleep 5
 domain=$(cat /root/domain)
 #cp -r /root/domain /etc/xray/domain
 rm -f /root/cf.sh

@@ -134,6 +134,7 @@ chown -R nobody:nogroup /etc/xray
 chmod 644 /etc/xray/xray.crt
 chmod 644 /etc/xray/xray.key
 echo -e "${HOK} Your Domain : $domain"
+echo $domain > /root/domain
 
 # nginx renew ssl
 echo -n '#!/bin/bash
@@ -188,3 +189,4 @@ sleep 1
 echo -e "${HINFO} Restart & Xray & Nginx"
 systemctl daemon-reload >/dev/null 2>&1
 systemctl restart nginx >/dev/null 2>&1
+sleep 5
