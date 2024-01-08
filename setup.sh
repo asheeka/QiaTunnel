@@ -76,7 +76,7 @@ apt dist-upgrade -y
 
 # // Install Requirement Tools
 apt-get --reinstall --fix-missing install -y sudo dpkg psmisc socat jq ruby wondershaper python2 tmux nmap bzip2 gzip coreutils wget screen rsyslog iftop htop net-tools zip unzip wget vim net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential gcc g++ automake make autoconf perl m4 dos2unix dropbear libreadline-dev zlib1g-dev libssl-dev dirmngr libxml-parser-perl neofetch git lsof iptables iptables-persistent
-apt-get --reinstall --fix-missing install -y libreadline-dev zlib1g-dev libssl-dev python2 screen curl jq bzip2 gzip coreutils rsyslog iftop htop zip unzip net-tools sed gnupg gnupg1 bc sudo apt-transport-https build-essential dirmngr libxml-parser-perl neofetch screenfetch git lsof openssl easy-rsa fail2ban tmux vnstat dropbear libsqlite3-dev socat cron bash-completion ntpdate xz-utils sudo apt-transport-https gnupg2 gnupg1 dnsutils lsb-release chrony
+apt-get --reinstall --fix-missing install -y libxml-parser-perl screenfetch openssl easy-rsa fail2ban libsqlite3-dev cron bash-completion ntpdate xz-utils dnsutils lsb-release chrony
 gem install lolcat
 
 # // Clear
@@ -93,6 +93,7 @@ rm -fr /var/lib/scrz-prem/
 
 # // Making Directory 
 mkdir -p /etc/nginx
+mkdir -p /etc/xray
 mkdir -p /var/lib/scrz-prem/
 
 # // String / Request Data
@@ -102,16 +103,16 @@ echo "IP=$host" >> /var/lib/scrz-prem/ipvps.conf
 echo $host > /root/domain
 sleep 2
 
-echo -e "$[GREEN]┌─────────────────────────────────────────┐${NC}"
-echo -e "$[YELLOW]                INSTALL DOMAIN             ${NC}"
-echo -e "$[GREEN]└─────────────────────────────────────────┘${NC}"
+echo -e "${GREEN}┌─────────────────────────────────────────┐${NC}"
+echo -e "${YELLOW}                INSTALL DOMAIN             ${NC}"
+echo -e "${GREEN}└─────────────────────────────────────────┘${NC}"
 sleep 1
 wget https://raw.githubusercontent.com/asheeka/QiaTunnel/main/cf.sh && chmod +x cf.sh && ./cf.sh
 
 #install ssh-vpn
-echo -e "$[GREEN]┌─────────────────────────────────────────┐${NC}"
-echo -e "$[YELLOW]             Install SSH / WS            ${NC}"
-echo -e "$[GREEN]└─────────────────────────────────────────┘${NC}"
+echo -e "${GREEN}┌─────────────────────────────────────────┐${NC}"
+echo -e "${YELLOW}             Install SSH / WS            ${NC}"
+echo -e "${GREEN}└─────────────────────────────────────────┘${NC}"
 sleep 1
 
 wget -q https://raw.githubusercontent.com/asheeka/QiaTunnel/main/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
@@ -213,7 +214,7 @@ fi
 echo -e "[ ${green}Please Wait Update DB ${NC} ]"
 git clone https://github.com/asheeka/limit.git /root/limit/ &> /dev/null
 babu=$(cat /etc/.geovpn/license.key)
-echo -e "$babu $IP $Masa_Laku_License_Berlaku_Sampai" >> /root/limit/limit.txt
+echo -e "$babu $IP" >> /root/limit/limit.txt
 cd /root/limit
     git config --global user.email "foreverwelearn@gmail.com" &> /dev/null
     git config --global user.name "asheeka" &> /dev/null
