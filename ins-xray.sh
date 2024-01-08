@@ -76,6 +76,8 @@ echo > /home/limit
 
 # nginx for debian & ubuntu
 install_ssl(){
+
+	
     if [ -f "/usr/bin/apt-get" ];then
             isDebian=`cat /etc/issue|grep Debian`
             if [ "$isDebian" != "" ];then
@@ -93,6 +95,16 @@ install_ssl(){
     fi
 
     systemctl stop nginx.service
+	Cek=$(lsof -i:80 | cut -d' ' -f1 | awk 'NR==2 {print $1}')
+	if [[ ! -z "$Cek" ]]; then
+		sleep 1
+		echo -e "${HERROR} Detected port 80 used by $Cek " 
+		systemctl stop $Cek
+		sleep 2
+		echo -e "${HINFO} Processing to stop $Cek " 
+		sleep 1
+	fi
+	
 
     if [ -f "/usr/bin/apt-get" ];then
             isDebian=`cat /etc/issue|grep Debian`
@@ -120,6 +132,17 @@ wget -q -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/asheeka
 
 # // Making Certificate
 clear
+Cek=$(lsof -i:80 | cut -d' ' -f1 | awk 'NR==2 {print $1}')
+	if [[ ! -z "$Cek" ]]; then
+		sleep 1
+		echo -e "${HERROR} Detected port 80 used by $Cek " 
+		systemctl stop $Cek
+		sleep 2
+		echo -e "${HINFO} Processing to stop $Cek " 
+		sleep 1
+	fi
+	
+	
 echo -e "${HINFO} Starting renew cert... " 
 sleep 2
 echo -e "${HOK} Starting Generating Certificate"
@@ -189,17 +212,6 @@ chown -R www-data:www-data /home/vps/public_html
 # Enable & Restart & Xray & Trojan & Nginx
 sleep 1
 echo -e "${HINFO} Restart & Xray & Nginx"
-
-Cek=$(lsof -i:80 | cut -d' ' -f1 | awk 'NR==2 {print $1}')
-	if [[ ! -z "$Cek" ]]; then
-		sleep 1
-		echo -e "${HERROR} Detected port 80 used by $Cek " 
-		systemctl stop $Cek
-		sleep 2
-		echo -e "${HINFO} Processing to stop $Cek " 
-		sleep 1
-	fi
-	
 systemctl daemon-reload >/dev/null 2>&1
 systemctl restart nginx >/dev/null 2>&1
 systemctl enable stunnel5 >/dev/null 2>&1
