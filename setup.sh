@@ -97,6 +97,7 @@ mkdir -p /var/lib/scrz-prem/
 
 # // String / Request Data
 mkdir -p /var/lib/scrz-prem >/dev/null 2>&1
+host=$(hostname)
 echo "IP=$host" >> /var/lib/scrz-prem/ipvps.conf
 echo $host > /root/domain
 sleep 2
@@ -131,6 +132,8 @@ wget -q -O /usr/bin/running "https://raw.githubusercontent.com/asheeka/QiaTunnel
 wget -q -O /usr/bin/cek-speed "https://raw.githubusercontent.com/asheeka/QiaTunnel/main/speedtest_cli.py"
 wget -q -O /usr/bin/tendang "https://raw.githubusercontent.com/asheeka/QiaTunnel/main/tendang.sh"
 wget -q -O /usr/bin/usernew "https://raw.githubusercontent.com/asheeka/QiaTunnel/main/usernew.sh"
+wget -q -O /usr/bin/wbm "https://raw.githubusercontent.com/asheeka/QiaTunnel/main/webmin.sh"
+wget -q -O /usr/bin/updatemenu "https://raw.githubusercontent.com/asheeka/QiaTunnel/main/updatemenu.sh"
 
 chmod +x /usr/bin/autoreboot
 chmod +x /usr/bin/clearlog
@@ -145,7 +148,8 @@ chmod +x /usr/bin/running
 chmod +x /usr/bin/cek-speed
 chmod +x /usr/bin/tendang
 chmod +x /usr/bin/usernew
-
+chmod +x /usr/bin/wbm
+chmod +x /usr/bin/updatemenu
 
 # > Setup Crontab
 echo "0 5 * * * root clear-log && reboot" >> /etc/crontab
@@ -252,7 +256,6 @@ echo "   - Fully automatic script" | tee -a log-install.txt
 echo "   - VPS settings" | tee -a log-install.txt
 echo "   - Admin Control" | tee -a log-install.txt
 echo "   - Change port" | tee -a log-install.txt
-echo "   - Restore Data" | tee -a log-install.txt
 echo ""
 echo "------------------------------------------------------------"
 echo ""

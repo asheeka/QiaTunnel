@@ -24,18 +24,13 @@ export HOK="[${GREEN} OK ${NC}]"
 export IP=$(curl -s https://ipinfo.io/ip/)
 
 clear
-source /var/lib/scrz-prem/ipvps.conf
-if [[ "$IP" = "" ]]; then
-	domain=$(cat /etc/xray/domain)
-else
-	domain=$IP
-fi
+domain=$(cat /root/domain)
 
 echo -e "${HINFO} Checking... "
 sleep 1
 echo -e "${HINFO} Setting ntpdate"
 sleep 1
-domain=$(cat /root/domain)
+
 apt install iptables iptables-persistent -y
 apt install curl socat xz-utils wget apt-transport-https gnupg gnupg2 gnupg1 dnsutils lsb-release -y
 apt install socat cron bash-completion ntpdate -y
@@ -46,22 +41,13 @@ timedatectl set-ntp true
 #systemctl enable chronyd && systemctl restart chronyd
 systemctl enable chrony && systemctl restart chrony
 timedatectl set-timezone Asia/Jakarta
-
 apt install curl pwgen openssl netcat cron -y
 
 # Make Folder & Log XRay & Log Trojan
-rm -fr /var/log/xray
-#rm -fr /var/log/trojan
 rm -fr /home/vps/public_html
-mkdir -p /var/log/xray
 mkdir -p /home/vps/public_html
-chown www-data.www-data /var/log/xray
 chown www-data.www-data /etc/xray
-chmod +x /var/log/xray
-touch /var/log/xray/access.log
-touch /var/log/xray/error.log
-touch /var/log/xray/access2.log
-touch /var/log/xray/error2.log
+
 # Make Log Autokill & Log Autoreboot
 rm -fr /root/log-limit.txt
 rm -fr /root/log-reboot.txt
@@ -147,7 +133,7 @@ alias acme.sh=~/.acme.sh/acme.sh
 chown -R nobody:nogroup /etc/xray
 chmod 644 /etc/xray/xray.crt
 chmod 644 /etc/xray/xray.key
-echo -e "${OKEY} Your Domain : $domain"
+echo -e "${HOK} Your Domain : $domain"
 
 # nginx renew ssl
 echo -n '#!/bin/bash

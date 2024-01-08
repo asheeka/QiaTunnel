@@ -65,5 +65,5 @@ sleep 1
 echo -e "${INFO} Domain added succesfully.."
 sleep 3
 domain=$(cat /root/domain)
-cp -r /root/domain /etc/xray/domain
+#cp -r /root/domain /etc/xray/domain
 rm -f /root/cf.sh
