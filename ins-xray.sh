@@ -22,7 +22,6 @@ export HOK="[${GREEN} OK ${NC}]"
 
 # // Exporting IP Address
 export IP=$(curl -s https://ipinfo.io/ip/)
-IP=$(curl -s ipinfo.io/ip )
 
 clear
 source /var/lib/scrz-prem/ipvps.conf
