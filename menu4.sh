@@ -1,3 +1,4 @@
+#!/bin/bash
 # // Root Checking
 if [ "${EUID}" -ne 0 ]; then
 		echo -e "${EROR} Please Run This Script As Root User !"
