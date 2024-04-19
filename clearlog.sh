@@ -1,4 +1,4 @@
-# ==========================================
+#!/bin/bash
 # Getting
 
 data=(`find /var/log/ -name *.log`);
