@@ -1,33 +1,8 @@
 #!/bin/bash
 
-
-
-# // Export Color & Information
-export RED='\033[0;31m'
-export GREEN='\033[0;32m'
-export YELLOW='\033[0;33m'
-export BLUE='\033[0;34m'
-export PURPLE='\033[0;35m'
-export CYAN='\033[0;36m'
-export LIGHT='\033[0;37m'
-export NC='\033[0m'
-
-# // Export Banner Status Information
-export EROR="[${RED} ERROR ${NC}]"
-export INFO="[${YELLOW} INFO ${NC}]"
-export OKEY="[${GREEN} OKEY ${NC}]"
-export PENDING="[${YELLOW} PENDING ${NC}]"
-export SEND="[${YELLOW} SEND ${NC}]"
-export RECEIVE="[${YELLOW} RECEIVE ${NC}]"
-
-# // Export Align
-export BOLD="\e[1m"
-export WARNING="${RED}\e[5m"
-export UNDERLINE="\e[4m"
-
 # // Root Checking
 if [ "${EUID}" -ne 0 ]; then
-	echo -e "${EROR} Please Run This Script As Root User !"
+	echo -e "${HERROR} Please Run This Script As Root User !"
 	exit 1
 fi
 
@@ -118,22 +93,22 @@ date
 echo ""
 # enable rc local
 sleep 1
-echo -e "${INFO} Checking... "
+echo -e "${HINFO} Checking... "
 sleep 2
 sleep 1
-echo -e "${INFO} Enable system rc local"
+echo -e "${HINFO} Enable system rc local"
 systemctl enable rc-local >/dev/null 2>&1
 systemctl start rc-local.service >/dev/null 2>&1
 
 # disable ipv6
 sleep 1
-echo -e "${INFO} Disable ipv6"
+echo -e "${HINFO} Disable ipv6"
 echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6 >/dev/null 2>&1
 sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local >/dev/null 2>&1
 
 # set time GMT +7
 sleep 1
-echo -e "${INFO} Set zona local time to Asia/Jakarta GMT+7"
+echo -e "${HINFO} Set zona local time to Asia/Jakarta GMT+7"
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 
 # set locale
@@ -143,7 +118,7 @@ sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 tesmatch=`screen -list | awk  '{print $1}' | grep -ow "badvpn" | sort | uniq`
 if [ "$tesmatch" = "badvpn" ]; then
 sleep 1
-echo -e "${INFO} Screen badvpn detected"
+echo -e "${HINFO} Screen badvpn detected"
 rm /root/screenlog > /dev/null 2>&1
     runningscreen=( `screen -list | awk  '{print $1}' | grep -w "badvpn"` ) # sed 's/\.[^ ]*/ /g'
     for actv in "${runningscreen[@]}"
@@ -161,7 +136,7 @@ else
 echo -ne
 fi
 cd
-echo -e "${INFO} Installing badvpn for game support..."
+echo -e "${HINFO} Installing badvpn for game support..."
 wget -q -O /usr/bin/badvpn-udpgw "https://raw.githubusercontent.com/asheeka/QiaTunnel/main/newudpgw"
 chmod +x /usr/bin/badvpn-udpgw  >/dev/null 2>&1
 sed -i '$ i\screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7100 --max-clients 500' /etc/rc.local >/dev/null 2>&1
@@ -172,16 +147,43 @@ systemctl start rc-local.service >/dev/null 2>&1
 systemctl restart rc-local.service >/dev/null 2>&1
 
 # /etc/ssh/sshd_config
-sed -i 's/Port 22/Port 22/g' /etc/ssh/sshd_config
-sed -i '/Port 22/a Port 2253' /etc/ssh/sshd_config
-echo "Port 22" >> /etc/ssh/sshd_config
-echo "Port 40000" >> /etc/ssh/sshd_config
+echo -e "${HINFO} Update sshd configuration ..."
+
+# Ubah #Port 22 menjadi Port 22 jika ada
+sed -i 's/^#Port 22$/Port 22/' /etc/ssh/sshd_config
+# Tambahkan Port 22 jika tidak ada
+if ! grep -qE '^Port\s+22$' /etc/ssh/sshd_config; then
+    echo "Port 22" >> /etc/ssh/sshd_config
+fi
+
+# Ubah #Port 2253 menjadi Port 2253 jika ada
+sed -i 's/^#Port 2253$/Port 2253/' /etc/ssh/sshd_config
+# Tambahkan Port 2253 jika tidak ada
+if ! grep -qE '^Port\s+2253$' /etc/ssh/sshd_config; then
+    echo "Port 2253" >> /etc/ssh/sshd_config
+fi
+
+# Ubah #Port 40000 menjadi Port 40000 jika ada
+sed -i 's/^#Port 40000$/Port 40000/' /etc/ssh/sshd_config
+# Tambahkan Port 40000 jika tidak ada
+if ! grep -qE '^Port\s+40000$' /etc/ssh/sshd_config; then
+    echo "Port 40000" >> /etc/ssh/sshd_config
+fi
+
 echo "X11Forwarding yes" >> /etc/ssh/sshd_config
 echo "AllowTcpForwarding yes" >> /etc/ssh/sshd_config
+sed -i 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/g' /etc/ssh/sshd_config
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
+
+if grep -qE '^[^#]*PasswordAuthentication\s+yes' /etc/ssh/sshd_config; then
+    echo "PasswordAuthentication already enabled"
+else
+    echo "PasswordAuthentication not enabled, adding..."
+    echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+fi
+
 echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
-sed -i 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/g' /etc/ssh/sshd_config
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 systemctl daemon-reload >/dev/null 2>&1
 systemctl start ssh >/dev/null 2>&1
@@ -189,7 +191,7 @@ systemctl restart ssh >/dev/null 2>&1
 
 # install dropbear
 sleep 1
-echo -e "${INFO} Settings Dropbear"
+echo -e "${HINFO} Settings Dropbear"
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
 sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=143/g' /etc/default/dropbear
 sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 109"/g' /etc/default/dropbear
@@ -293,7 +295,7 @@ systemctl restart stunnel5 >/dev/null 2>&1
 
 # Install bbr
 sleep 1
-echo -e "[ ${green}INFO$NC ] Install bbr"
+echo -e "${HINFO} Install bbr"
 Add_To_New_Line(){
 	if [ "$(tail -n1 $1 | wc -l)" == "0"  ];then
 		echo "" >> "$1"
@@ -359,7 +361,7 @@ echo "#############################################"
 Install_BBR
 Optimize_Parameters
 sleep 1
-echo -e "${INFO} Install successfully..."
+echo -e "${HINFO} Install successfully..."
 
 # install fail2ban
 # Instal DDOS Flate
@@ -367,9 +369,9 @@ rm -fr /usr/local/ddos
 mkdir -p /usr/local/ddos >/dev/null 2>&1
 #clear
 sleep 1
-echo -e "${INFO} Install DOS-Deflate"
+echo -e "${HINFO} Install DOS-Deflate"
 sleep 1
-echo -e "${INFO} Downloading source files..."
+echo -e "${HINFO} Downloading source files..."
 wget -q -O /usr/local/ddos/ddos.conf http://www.inetbase.com/scripts/ddos/ddos.conf
 wget -q -O /usr/local/ddos/LICENSE http://www.inetbase.com/scripts/ddos/LICENSE
 wget -q -O /usr/local/ddos/ignore.ip.list http://www.inetbase.com/scripts/ddos/ignore.ip.list
@@ -377,25 +379,25 @@ wget -q -O /usr/local/ddos/ddos.sh http://www.inetbase.com/scripts/ddos/ddos.sh
 chmod 0755 /usr/local/ddos/ddos.sh
 cp -s /usr/local/ddos/ddos.sh /usr/local/sbin/ddos  >/dev/null 2>&1
 sleep 1
-echo -e "${INFO} Create cron script every minute...."
+echo -e "${HINFO} Create cron script every minute...."
 /usr/local/ddos/ddos.sh --cron > /dev/null 2>&1
 sleep 1
-echo -e "${INFO} Install successfully..."
+echo -e "${HINFO} Install successfully..."
 sleep 1
-echo -e "${INFO} Config file at /usr/local/ddos/ddos.conf"
+echo -e "${HINFO} Config file at /usr/local/ddos/ddos.conf"
 
 # Banner /etc/issue.net
 rm -fr /etc/issue.net
 rm -fr /etc/issue.net.save
 sleep 1
-echo -e "${INFO} Settings banner"
+echo -e "${HINFO} Settings banner"
 wget -q -O /etc/issue.net "https://raw.githubusercontent.com/asheeka/QiaTunnel/main/issue.net"
 chmod +x /etc/issue.net
 echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
 
 # Blokir Torrent
-echo -e "[ ${green}INFO$NC ] Set iptables"
+echo -e "${HINFO} Set iptables"
 sleep 1
 sudo iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
 sudo iptables -A FORWARD -m string --string "announce_peer" --algo bm -j DROP
@@ -415,7 +417,7 @@ sudo netfilter-persistent reload >/dev/null 2>&1
 
 # remove unnecessary files
 sleep 1
-echo -e "${INFO} Clearing trash"
+echo -e "${HINFO} Clearing trash"
 apt autoclean -y >/dev/null 2>&1
 
 if dpkg -s unscd >/dev/null 2>&1; then
@@ -423,35 +425,35 @@ apt -y remove --purge unscd >/dev/null 2>&1
 fi
 
 cd
-echo -e "${INFO} Restarting openvpn"
+echo -e "${HINFO} Restarting openvpn"
 /etc/init.d/cron restart >/dev/null 2>&1
 sleep 1
-echo -e "${INFO} Restarting cron"
+echo -e "${HINFO} Restarting cron"
 /etc/init.d/ssh restart >/dev/null 2>&1
 sleep 1
-echo -e "${INFO} Restarting ssh"
+echo -e "${HINFO} Restarting ssh"
 /etc/init.d/dropbear restart >/dev/null 2>&1
 sleep 1
-echo -e "${INFO} Restarting dropbear"
+echo -e "${HINFO} Restarting dropbear"
 /etc/init.d/fail2ban restart >/dev/null 2>&1
 sleep 1
-echo -e "${INFO} Restarting fail2ban"
+echo -e "${HINFO} Restarting fail2ban"
 /etc/init.d/stunnel5 restart >/dev/null 2>&1
 sleep 1
-echo -e "${INFO} Restarting stunnel5"
+echo -e "${HINFO} Restarting stunnel5"
 #/etc/init.d/vnstat restart >/dev/null 2>&1
 sleep 1
-echo -e "${INFO} Restarting BadVPN "
+echo -e "${HINFO} Restarting BadVPN "
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7100 --max-clients 500 >/dev/null 2>&1
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7200 --max-clients 500 >/dev/null 2>&1
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 500 >/dev/null 2>&1
 sleep 1
-echo -e "${INFO} Restarting BadVPN "
+echo -e "${HINFO} Restarting BadVPN "
 history -c
 echo "unset HISTFILE" >> /etc/profile
 
 cd
-echo -e "{INFO} SSH & OVPN install successfully"
+echo -e "${HINFO} SSH & OVPN install successfully"
 sleep 5
 clear
 rm -fr /root/key.pem >/dev/null 2>&1

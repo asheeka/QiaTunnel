@@ -1,26 +1,8 @@
-# // Export Color & Information
-export RED='\033[0;31m'
-export GREEN='\033[0;32m'
-export YELLOW='\033[0;33m'
-export BLUE='\033[0;34m'
-export PURPLE='\033[0;35m'
-export CYAN='\033[0;36m'
-export LIGHT='\033[0;37m'
-export NC='\033[0m'
-
-# // Export Banner Status Information
-export HERROR="[${RED} ERROR ${NC}]"
-export HINFO="[${YELLOW} INFO ${NC}]"
-export HOK="[${GREEN} OKEY ${NC}]"
-
 # // Root Checking
 if [ "${EUID}" -ne 0 ]; then
 		echo -e "${HERROR} Please Run This Script As Root User !"
 		exit 1
 fi
-
-# // Get VPS IP Address
-export IP=$( curl -s https://ipinfo.io/ip/ )
 
 clear
 domen=`cat /root/domain`

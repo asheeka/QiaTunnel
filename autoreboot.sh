@@ -1,4 +1,4 @@
-# // Root Checking
+# //Root Checking
 if [ "${EUID}" -ne 0 ]; then
 		echo -e "${HERROR} Please Run This Script As Root User !"
 		exit 1
@@ -21,11 +21,13 @@ export HOK="[${GREEN} OK ${NC}]"
 
 clear
 if [ ! -e /usr/bin/reboot ]; then
-	echo '#!/bin/bash' > /usr/bin/reboot
-	echo 'tanggal=$(date +"%m-%d-%Y")' >> /usr/bin/reboot
-	echo 'waktu=$(date +"%T")' >> /usr/bin/reboot
-	echo 'echo "Server successfully rebooted on the date of $tanggal hit $waktu." >> /root/log-reboot.txt' >> /usr/bin/reboot
-	echo '/sbin/shutdown -r now' >> /usr/bin/reboot
+	{
+	echo '#!/bin/bash'  
+	echo 'tanggal=$(date +"%m-%d-%Y")' 
+	echo 'waktu=$(date +"%T")'
+	echo 'echo "Server successfully rebooted on the date of $tanggal hit $waktu." >> /root/log-reboot.txt'
+	echo '/sbin/shutdown -r now' 
+	} >> /usr/bin/reboot
 	chmod +x /usr/bin/reboot
 fi
 
@@ -44,7 +46,7 @@ echo -e "    [ ${CYAN}7${NC} ]  Turn Off Auto Reboot"
 echo -e "    [ ${CYAN}X${NC} ]  Back to Menu"
 echo -e "───────────────────────────────────────" | lolcat
 echo -e ""
-read -p "    Please Input Number  [1-7 or X] :  "  autoreboot
+read -p -r "    Please Input Number  [1-7 or X] :  "  autoreboot
 echo -e ""
 case $autoreboot in
 1)

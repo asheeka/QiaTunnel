@@ -1,23 +1,8 @@
-#!/bin/bash
-export RED='\033[0;31m'
-export GREEN='\033[0;32m'
-export YELLOW='\033[0;33m'
-export BLUE='\033[0;34m'
-export PURPLE='\033[0;35m'
-export CYAN='\033[0;36m'
-export LIGHT='\033[0;37m'
-export NC='\033[0m'
-
-export HERROR="[${RED} ERROR ${NC}]"
-export HINFO="[${YELLOW} INFO ${NC}]"
-export HOK="[${GREEN} OK ${NC}]"
-
 # // Root Checking
 if [ ${EUID} -ne 0 ]; then
 	echo -e "${HERROR} Please Run This Script As Root User !"
 	exit 1
 fi
-
  
 clear
 
@@ -25,11 +10,11 @@ IP=$(curl -s ipinfo.io/ip )
 
 clear
 
-DOMAIN=pmhm.my.id
+DOMAIN=onedata.my.id
 
 echo -e "${HINFO} Give name for your sub domain"
-echo -e "${HINFO} Your sub domain will added to (your-sub-domain).pmhm.my.id"
-read -rp " Please enter your sub domain : " -e subdomen
+echo -e "${HINFO} Your sub domain will added to (your-sub-domain).onedata.my.id"
+read -r -p " Please enter your sub domain : " -e subdomen
 #sub=$(</dev/urandom tr -dc a-z0-9 | head -c6)
 #sub=$(premium)
 SUB_DOMAIN=${subdomen}.${DOMAIN}

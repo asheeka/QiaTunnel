@@ -95,7 +95,7 @@ function genssl(){
 		echo -e "${HINFO} Processing to stop $Cek " 
 		sleep 1
 	fi
-	echo -e "${INFO} Starting renew gen-ssl... " 
+	echo -e "${HINFO} Starting renew gen-ssl... " 
 	sleep 2
 	/root/.acme.sh/acme.sh --upgrade
 	/root/.acme.sh/acme.sh --upgrade --auto-upgrade
