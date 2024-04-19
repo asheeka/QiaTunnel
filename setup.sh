@@ -109,7 +109,7 @@ echo "┌───────────────────────�
 echo "                INSTALL DOMAIN             "
 echo "└─────────────────────────────────────────┘"
 sleep 1
-wget https://raw.githubusercontent.com/asheeka/QiaTunnel/main/cf.sh && chmod x cf.sh && ./cf.sh
+wget https://raw.githubusercontent.com/asheeka/QiaTunnel/main/cf.sh && chmod +x cf.sh && ./cf.sh
 
 #install ssh-vpn
 echo "┌─────────────────────────────────────────┐"
