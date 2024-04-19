@@ -28,7 +28,6 @@ chmod +x /etc/pam.d/common-password
 
 # go to root
 cd
-
 clear 
 
 # Getting websocket ssl stunnel
